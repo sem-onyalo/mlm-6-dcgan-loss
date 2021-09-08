@@ -8,7 +8,11 @@ from tensorflow.keras.models import Sequential
 
 class Data():
     def loadDataset(self):
-        pass
+        (trainX, _), (_, _) = load_data()
+        X = expand_dims(trainX, axis=-1)
+        X = X.numpy().astype('float32')
+        X = (X - 127.5) / 127.5 # scale from 0,255 to -1,1
+        return X
 
     def generateRealTrainingSamples(self, dataset, samples):
         idx = randint(0, dataset.shape[0], samples)
@@ -22,9 +26,8 @@ class Data():
         y = zeros((samples, 1))
         return X, y
 
-    def generateFakeTrainingGanSamples(self, generator:Sequential, latentDim, samples):
-        x = self.generateLatentPoints(latentDim, samples)
-        X = generator.predict(x)
+    def generateFakeTrainingGanSamples(self, latentDim, samples):
+        X = self.generateLatentPoints(latentDim, samples)
         y = ones((samples, 1))
         return X, y
 

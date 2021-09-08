@@ -1,4 +1,4 @@
-# DCGAN Digits
+# DCGAN Digits - Loss Experimenting
 A DCGAN that learns to generate MNIST grayscale handwritten digits using different loss functions.
 
  ![Training plots](training-plots.gif)

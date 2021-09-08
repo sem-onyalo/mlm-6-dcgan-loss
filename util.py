@@ -1,0 +1,10 @@
+class Constants:
+    NON_SATURATING_LOSS = 'NON_SATURATING_LOSS'
+    LEAST_SQUARES_LOSS = 'LEAST_SQUARES_LOSS'
+    WASSERSTEIN_LOSS = 'WASSERSTEIN_LOSS'
+
+    ganLossType = {
+        'ns': 'NON_SATURATING_LOSS',
+        'ls': 'LEAST_SQUARES_LOSS',
+        'ws': 'WASSERSTEIN_LOSS'
+    }
