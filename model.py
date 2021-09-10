@@ -70,7 +70,7 @@ def createGenerator(input, inputDim, batchNorm=True, leakyRelu=False)->Sequentia
 
     return model
 
-def createGan(discriminator:Sequential, generator:Sequential):
+def createGan(discriminator:Sequential, generator:Sequential, loss=Constants.NON_SATURATING_LOSS):
     # discriminator.trainable = False
     for layer in discriminator.layers:
         if not isinstance(layer, BatchNormalization):
@@ -80,14 +80,21 @@ def createGan(discriminator:Sequential, generator:Sequential):
     model.add(generator)
     model.add(discriminator)
     opt = Adam(learning_rate=0.0002, beta_1=0.5)
-    model.compile(loss='binary_crossentropy', optimizer=opt)
+
+    if loss == Constants.NON_SATURATING_LOSS:
+        model.compile(loss='binary_crossentropy', optimizer=opt)
+    elif loss == Constants.LEAST_SQUARES_LOSS:
+        model.compile(loss='mse', optimizer=opt)
+    else:
+        raise Exception('invalid GAN loss: ' + loss)
+
     return model
 
 if __name__ == '__main__':
     discriminator = createDiscriminator((28,28,1))
     generator = createGenerator(100, 7)
     gan = createGan(discriminator, generator)
-    
+
     print('\nDiscriminator\n')
     discriminator.summary()
     

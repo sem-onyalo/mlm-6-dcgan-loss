@@ -25,7 +25,7 @@ if __name__ == '__main__':
     ganLoss = Constants.ganLossType[args.loss]
     discriminator = createDiscriminator(dInputShape, loss=ganLoss)
     generator = createGenerator(args.latentDim, dInputDim)
-    gan = createGan(discriminator, generator)
+    gan = createGan(discriminator, generator, loss=ganLoss)
     data = Data()
 
     trainer = Trainer(discriminator, generator, gan, data)
