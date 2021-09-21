@@ -13,6 +13,18 @@ python -m venv env
 pip install -r requirements.txt
 ```
 
+## Architecture
+
+```
+python model.py
+```
+
+## Train
+
+```
+python main.py
+```
+
 ## Reference
 
 https://machinelearningmastery.com/generative_adversarial_networks/

@@ -20,15 +20,32 @@ class Data():
         y = ones((samples, 1))
         return X, y
 
+    def generateRealTrainingWanSamples(self, dataset, samples):
+        idx = randint(0, dataset.shape[0], samples)
+        X = dataset[idx]
+        y = -ones((samples, 1))
+        return X, y
+
     def generateFakeTrainingSamples(self, generator:Sequential, latentDim, samples):
         x = self.generateLatentPoints(latentDim, samples)
         X = generator.predict(x)
         y = zeros((samples, 1))
         return X, y
 
+    def generateFakeTrainingWanSamples(self, generator:Sequential, latentDim, samples):
+        x = self.generateLatentPoints(latentDim, samples)
+        X = generator.predict(x)
+        y = ones((samples, 1))
+        return X, y
+
     def generateFakeTrainingGanSamples(self, latentDim, samples):
         X = self.generateLatentPoints(latentDim, samples)
         y = ones((samples, 1))
+        return X, y
+
+    def generateFakeTrainingGanWanSamples(self, latentDim, samples):
+        X = self.generateLatentPoints(latentDim, samples)
+        y = -ones((samples, 1))
         return X, y
 
     def generateLatentPoints(self, latentDim, samples):

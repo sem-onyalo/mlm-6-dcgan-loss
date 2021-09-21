@@ -6,7 +6,7 @@ Ref: https://machinelearningmastery.com/generative_adversarial_networks/
 
 import argparse
 from data import Data
-from model import createDiscriminator, createGenerator, createGan
+from model import createGan
 from trainer import Trainer
 from util import Constants
 
@@ -23,10 +23,8 @@ if __name__ == '__main__':
     dInputDim = 7
 
     ganLoss = Constants.ganLossType[args.loss]
-    discriminator = createDiscriminator(dInputShape, loss=ganLoss)
-    generator = createGenerator(args.latentDim, dInputDim)
-    gan = createGan(discriminator, generator, loss=ganLoss)
+    gan, discriminator, generator = createGan(dInputShape, dInputDim, args.latentDim, ganLoss)
     data = Data()
 
-    trainer = Trainer(discriminator, generator, gan, data)
+    trainer = Trainer(discriminator, generator, gan, data, ganLoss)
     trainer.train(args.latentDim, epochs=args.epochs, batchSize=args.batchsize, evalFreq=args.evalfreq)
